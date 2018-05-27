@@ -3,9 +3,9 @@
 # Fast and simple JSON processing TCP server written in Go
 
 Designed to act as a template for server side JSON processing.
-Simply modify the global MyObject struct with the fields you need, run the server, and interact with the common API.
+Simply modify the global MyObject struct with the fields you need, run the server, and import the the API into any package.
 
-The server will accept the connection, handle it on a seperate thread, inject a response, and send data back all from one call:
+The API will send the serialized struct to the server, which will accept the connection, handle it on a seperate thread, inject a response, and send data back all from one call:
 
 ` conn, err := satellite.SendJson(obj) `
 
