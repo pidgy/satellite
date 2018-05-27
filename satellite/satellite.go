@@ -4,7 +4,7 @@ import (
 	"flag"
 	"github.com/rs/zerolog/log"
 	"github.com/rs/zerolog"
-	"github.com/trashbo4t/satellite/common"
+	"github.com/trashbo4t/satellite"
 	"net"
 	"os"
 )
@@ -56,7 +56,7 @@ func handleTcp(c chan net.Conn) {
 		}
 		log.Debug().Msgf("Received Message: %s", string(data))
 		log.Debug().Msgf("Total bytes: %d", reqLen)
-		data, err = common.HandleJSON(data)
+		data, err = satellite.HandleJSON(data)
 		if err != nil {
 			log.Error().Err(err).Msg("Handling JSON")
 			conn.Close()
@@ -84,7 +84,7 @@ func launchTcpHandlers() chan net.Conn {
 // Accept connections and send them down the connection channel
 func spinTcp(listener net.Listener) {
 	defer listener.Close()
-	log.Info().Msgf("Listening on %s:%s", common.CONN_HOST, common.CONN_PORT)
+	log.Info().Msgf("Listening on %s:%s", satellite.CONN_HOST, satellite.CONN_PORT)
 	connChan := launchTcpHandlers()
 	for {
 		conn, err := listener.Accept()
@@ -101,13 +101,13 @@ func spinTcp(listener net.Listener) {
 func main() {
 	log.Info().Msg("Started Satellite \"Beep Boop Bop Beep\" ")
 	if tcp {
-		l, err := common.TcpConn()
+		l, err := satellite.TcpConn()
 		if err != nil {
 			log.Panic().Err(err).Msg("Cannot listen")
 		}
 		spinTcp(l)
 	} else if udp {
-		c, err := common.UdpConn()
+		c, err := satellite.UdpConn()
 		if err != nil {
 			log.Panic().Err(err).Msg("Cannot listen")
 		}
