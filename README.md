@@ -1,4 +1,4 @@
-# satellite
+# satellite  ![alt text](https://image.flaticon.com/icons/svg/254/254001.svg)
 
 # Fast and simple JSON processing TCP server written in Go
 
