@@ -1,4 +1,4 @@
-# satellite  ![alt text](https://image.flaticon.com/icons/svg/917/917274.svg)
+# satellite  <img src="https://image.flaticon.com/icons/svg/917/917274.svg" width="48">
 
 # Fast and simple JSON processing TCP server written in Go
 
