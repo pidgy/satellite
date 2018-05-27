@@ -7,7 +7,7 @@ Simply modify the global MyObject struct with the fields you need, run the serve
 
 The server will accept the connection, handle it on a seperate thread, inject a response, and send data back all from one call:
 
-` conn, err := common.SendJson(obj) `
+` conn, err := satellite.SendJson(obj) `
 
 Only a couple of changes are required to customize the library for your needs
 
