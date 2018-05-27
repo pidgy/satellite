@@ -11,7 +11,7 @@ The server will accept the connection, handle it on a seperate thread, inject a 
 
 Only a couple of changes are required to customize the library for your needs
 
-* common/object.go
+* object.go
 ```
 type MyObject struct {
 	Magic uint8
@@ -20,7 +20,7 @@ type MyObject struct {
 }
 ```
 
-* common/common.go 
+* common.go 
 ```
 // HandleJSON
 // Modify this function to do whatever you need to do
