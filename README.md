@@ -11,7 +11,7 @@ Simply modify the global MyObject struct with the fields you need, run the serve
 `import "github.com/trashbo4t/satellite"`
 
 ```
-Usage of satellite.exe:
+Usage of satellite:
   -d    set log level to debug
   -e    set log level to error
   -i    set log level to info
