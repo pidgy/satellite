@@ -10,6 +10,17 @@ Simply modify the global MyObject struct with the fields you need, run the serve
 
 `import "github.com/trashbo4t/satellite"`
 
+```
+Usage of satellite.exe:
+  -d    set log level to debug
+  -e    set log level to error
+  -i    set log level to info
+  -s    output to stderr
+  -t    listen on TCP (default true)
+  -u    listen on UDP
+  -w    set log level to warning
+```
+
 The API will send the serialized struct to the server, which will accept the connection, handle it on a seperate thread, inject a response, and send data back all from one call:
 
 ` conn, err := satellite.SendJson(obj) `
