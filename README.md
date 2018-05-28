@@ -9,6 +9,22 @@ The API will send the serialized struct to the server, which will accept the con
 
 ` conn, err := satellite.SendJson(obj) `
 
+The TCP server works as follows:
+
+    - satellite.go
+	- A socket is opened and listened on the main thread of execution
+	- 5 TcpHandlers run as go routines (concurrently) and listen on a channel for incoming connections.
+	- Main thread receives connections and sends them down the channel.
+	- Any TcpHandler picks up the connection request and Marshals the json message.
+	- If an error occurs the the socket is closed, and a RST packet is sent to the user.
+
+    package satellite -> common.go
+    	- import "github.com/trashbo4t/satellite"
+	- modify the json object inside common.go
+	- modify the HandleJson function inside common.go
+	- call the SendJson function.
+	
+
 Only a couple of changes are required to customize the library for your needs
 
 * object.go
