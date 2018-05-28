@@ -5,6 +5,11 @@
 Designed to act as a template for server side JSON processing.
 Simply modify the global MyObject struct with the fields you need, run the server, and import the the API into any package.
 
+# usage
+`go get github.com/trashbo4t/satellite`
+
+`import "github.com/trashbo4t/satellite"`
+
 The API will send the serialized struct to the server, which will accept the connection, handle it on a seperate thread, inject a response, and send data back all from one call:
 
 ` conn, err := satellite.SendJson(obj) `
@@ -17,13 +22,6 @@ The TCP server works as follows:
 	- Main thread receives connections and sends them down the channel.
 	- Any TcpHandler picks up the connection request and Marshals the json message.
 	- If an error occurs the the socket is closed, and a RST packet is sent to the user.
-
-    package satellite -> common.go
-    	- import "github.com/trashbo4t/satellite"
-	- modify the json object inside common.go
-	- modify the HandleJson function inside common.go
-	- call the SendJson function.
-	
 
 Only a couple of changes are required to customize the library for your needs
 
