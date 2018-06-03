@@ -3,15 +3,40 @@
 # Fast and simple JSON processing TCP server written in Go
 
 Designed to act as a template for server side JSON processing.
-Simply modify the global MyObject struct with the fields you need, run the server, and interact with the common API.
+Simply modify the global MyObject struct with the fields you need, run the server, and import the the API into any package.
 
-The server will accept the connection, handle it on a seperate thread, inject a response, and send data back all from one call:
+# usage
+`go get github.com/trashbo4t/satellite`
 
-` conn, err := common.SendJson(obj) `
+`import "github.com/trashbo4t/satellite"`
+
+```
+Usage of satellite:
+  -d    set log level to debug
+  -e    set log level to error
+  -i    set log level to info
+  -s    output to stderr
+  -t    listen on TCP (default true)
+  -u    listen on UDP
+  -w    set log level to warning
+```
+
+The API will send the serialized struct to the server, which will accept the connection, handle it on a seperate thread, inject a response, and send data back all from one call:
+
+` conn, err := satellite.SendJson(obj) `
+
+The TCP server works as follows:
+
+    - satellite.go
+	- A socket is opened and listened on the main thread of execution
+	- 5 TcpHandlers run as go routines (concurrently) and listen on a channel for incoming connections.
+	- Main thread receives connections and sends them down the channel.
+	- Any TcpHandler picks up the connection request and Marshals the json message.
+	- If an error occurs the the socket is closed, and a RST packet is sent to the user.
 
 Only a couple of changes are required to customize the library for your needs
 
-* common/object.go
+* object.go
 ```
 type MyObject struct {
 	Magic uint8
@@ -20,7 +45,7 @@ type MyObject struct {
 }
 ```
 
-* common/common.go 
+* common.go 
 ```
 // HandleJSON
 // Modify this function to do whatever you need to do
